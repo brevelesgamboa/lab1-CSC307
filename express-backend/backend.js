@@ -116,6 +116,7 @@ app.listen(port, () => {
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
-  addUser(userToAdd);
-  res.send();
+  const newInsertedUser = addUser(userToAdd);
+  //send 201 content created
+  res.status(201).send(newInsertedUser);
 });

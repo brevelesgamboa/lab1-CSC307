@@ -32,7 +32,15 @@ function MyApp() {
 
   function updateList(person) {
     postUser(person)
-      .then(() => setCharacters([...characters, person]))
+      .then((response) => {
+        // update the state if the response status is 201
+        if (response.status === 201) {
+          setCharacters([...characters, person]);
+        } else {
+          // do not update the state 
+          console.log("Error creating user!");
+        }
+      })
       .catch((error) => {
         console.log(error);
       });
