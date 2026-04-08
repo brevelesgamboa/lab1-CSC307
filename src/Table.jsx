@@ -6,6 +6,7 @@ function TableHeader() {
         <th>Name</th>
         <th>Job</th>
         <th>Remove</th>
+        <th>ID</th>
       </tr>
     </thead>
   );
@@ -22,6 +23,7 @@ function TableBody(props) {
                 Delete
                 </button>
             </td>
+            <td>{row.id}</td>
         </tr>
     );
    }
