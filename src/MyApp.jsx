@@ -7,10 +7,28 @@ function MyApp() {
   const [characters, setCharacters] = useState([]);
 
   function removeOneCharacter(index) {
-    const updated = characters.filter((character, i) => {
-      return i !== index;
-    });
-    setCharacters(updated);
+    // find the ID of the person we want to delete
+    const personToDelete = characters[index];
+    const idToDelete = personToDelete.id;
+
+    // send the DELETE request to backend
+    fetch(`http://localhost:8000/users/${idToDelete}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        // 204 successful
+        if (response.status === 204) {
+          const updated = characters.filter((character, i) => {
+            return i !== index;
+          });
+          setCharacters(updated);
+        } else {
+          console.log("Failed to delete user on backend!");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   function fetchUsers() {
@@ -40,7 +58,7 @@ function MyApp() {
             setCharacters([...characters, newUser]);
           });
         } else {
-          // do not update the state 
+          // do not update the state
           console.log("Error creating user!");
         }
       })
@@ -48,6 +66,7 @@ function MyApp() {
         console.log(error);
       });
   }
+
   useEffect(() => {
     fetchUsers()
       .then((res) => res.json())
