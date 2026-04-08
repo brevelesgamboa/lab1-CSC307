@@ -35,7 +35,10 @@ function MyApp() {
       .then((response) => {
         // update the state if the response status is 201
         if (response.status === 201) {
-          setCharacters([...characters, person]);
+          // parse JSON to get the object with the new ID
+          response.json().then((newUser) => {
+            setCharacters([...characters, newUser]);
+          });
         } else {
           // do not update the state 
           console.log("Error creating user!");
@@ -45,7 +48,6 @@ function MyApp() {
         console.log(error);
       });
   }
-
   useEffect(() => {
     fetchUsers()
       .then((res) => res.json())
