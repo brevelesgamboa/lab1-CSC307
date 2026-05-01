@@ -9,7 +9,7 @@ function MyApp() {
   function removeOneCharacter(index) {
     // find the ID of the person we want to delete
     const personToDelete = characters[index];
-    const idToDelete = personToDelete.id;
+    const idToDelete = personToDelete._id;
 
     // send the DELETE request to backend
     fetch(`http://localhost:8000/users/${idToDelete}`, {
